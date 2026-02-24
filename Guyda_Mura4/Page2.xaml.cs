@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guyda_Mura423;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -92,6 +93,10 @@ namespace Guyda_Mura4
             txtResult.Clear();
             // Можно сбросить выбор на sh(x) (по умолчанию)
             rbtnSh.IsChecked = true;
+        }
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Page3());
         }
     }
 }
