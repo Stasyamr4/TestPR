@@ -31,24 +31,14 @@ namespace Guyda_Mura423
             try
             {
                 // Считываем все параметры
-                double x0 = double.Parse(txtX0.Text);
+                double x0 = double.Parse(txtX.Text);
                 double b = double.Parse(txtB.Text);
-                double ko = double.Parse(txtKO.Text);
+                double ko = double.Parse(txtK0.Text);
                 double k1 = double.Parse(txtK1.Text);
-                double dx = double.Parse(txtDx.Text);
+                double dx = double.Parse(txtDX.Text);
 
-                // Здесь я предполагаю, что xk = x0 + что-то? 
-                // Но в макете нет поля для xk. Возможно, это просто одиночный расчёт?
-                // Однако если это табуляция, то должно быть два x.
-                // Без xk табуляцию не сделать. 
-                // Поэтому пока считаем, что xk = x0 (один шаг). 
-                // Если нужно несколько точек — нужно уточнить.
-
-                // ВАЖНО: на макете только одно поле x, значит это просто одно значение.
-                // Тогда остальные поля (KO, K1, dx) могут быть не нужны, но раз есть — используем.
-
-                // Для примера возьмём xk = x0 + 1 (имитация табуляции)
-                double xk = x0 + 1; // заглушка, пока нет поля xk
+                
+                double xk = x0 + 1;
 
                 // Очищаем вывод
                 txtResult.Clear();
@@ -71,7 +61,7 @@ namespace Guyda_Mura423
                             txtResult.Clear();
                             return;
                         }
-                        // Формула с учётом KO и K1 (предполагаем, что KO умножается на x, а K1 на b)
+                        
                         double y = ko * x * Math.Sin(Math.Sqrt(x) + k1 * b - 0.0084);
                         txtResult.AppendText($"x = {x:F4}   y = {y:F6}\n");
                     }
