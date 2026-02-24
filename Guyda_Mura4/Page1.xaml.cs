@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -80,6 +81,11 @@ namespace Guyda_Mura4
             txtY.Clear();
             txtZ.Clear();
             txtResult.Text = "0";
+        }
+
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Page2());
         }
     }
 }

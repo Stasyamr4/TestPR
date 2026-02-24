@@ -24,5 +24,10 @@ namespace Guyda_Mura4
         {
             InitializeComponent();
         }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Page currentPage = MainFrame.Content as Page;
+            if (MainFrame.NavigationService.CanGoBack) MainFrame.NavigationService.GoBack();
+        }
     }
 }

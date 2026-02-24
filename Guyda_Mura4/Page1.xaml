@@ -16,6 +16,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="231,295,0,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" RenderTransformOrigin="-0.166,-0.305" FontSize="16"/>
         <Button x:Name="btnCalculate" Content="Вычислить" HorizontalAlignment="Left" Margin="400,186,0,0" VerticalAlignment="Top" Click="BtnCalculate_Click" FontSize="16" Height="34" Width="101"/>
         <Button x:Name="btnClear" Content="Очистить" HorizontalAlignment="Left" Margin="402,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.129,-0.122" FontSize="16" Height="33" Width="99" Click="BtnClear_Click"/>
+        <Button x:Name="btnNext" Content="Далее" HorizontalAlignment="Left" Margin="659,391,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.129,-0.122" FontSize="16" Height="28" Width="89" Click="BtnNext_Click"/>
         <TextBox x:Name="txtX" HorizontalAlignment="Left" Margin="269,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="102" Height="26"/>
         <TextBox x:Name="txtZ" HorizontalAlignment="Left" Margin="269,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="102" Height="26"/>
         <TextBox x:Name="txtY" HorizontalAlignment="Left" Margin="269,240,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="102" Height="26"/>

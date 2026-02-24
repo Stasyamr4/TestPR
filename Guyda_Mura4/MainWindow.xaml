@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Frame Source="Page1.xaml"></Frame>
+        <Frame x:Name="MainFrame" Source="Page1.xaml"></Frame>
+        <Button x:Name="BackButton" Margin="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="25" Click="BackButton_Click">Назад</Button>
     </Grid>
 </Window>
