@@ -16,15 +16,25 @@
         <TextBox x:Name="txtX" HorizontalAlignment="Left" Margin="144,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="27"/>
         <TextBlock HorizontalAlignment="Left" Margin="103,173,0,0" TextWrapping="Wrap" Text="B" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="txtB" HorizontalAlignment="Left" Margin="144,173,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="27"/>
-        <TextBlock HorizontalAlignment="Left" Margin="98,223,0,0" TextWrapping="Wrap" Text="K0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="txtK0" HorizontalAlignment="Left" Margin="144,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="28"/>
-        <TextBlock HorizontalAlignment="Left" Margin="283,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Height="27" Width="51" RenderTransformOrigin="0.523,1.267"><Run Language="ru-ru" Text="K1"/></TextBlock>
-        <TextBox x:Name="txtK1" HorizontalAlignment="Left" Margin="319,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="28"/>
+        <TextBlock HorizontalAlignment="Left" Margin="98,223,0,0" TextWrapping="Wrap" Text="X0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="txtX0" HorizontalAlignment="Left" Margin="144,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="28"/>
+        <TextBlock HorizontalAlignment="Left" Margin="283,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Height="27" Width="51" RenderTransformOrigin="0.523,1.267"><Run Language="ru-ru" Text="Xk"/></TextBlock>
+        <TextBox x:Name="txtXk" HorizontalAlignment="Left" Margin="319,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="28"/>
         <TextBlock HorizontalAlignment="Left" Margin="81,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Height="27" Width="51" RenderTransformOrigin="0.523,1.267"><Run Language="ru-ru" Text="Ответ"/></TextBlock>
         <TextBox x:Name="txtResult" TextWrapping="Wrap"  AcceptsReturn="True" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Left" Margin="144,268,0,0" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnCalculate" Content="Вычислить" HorizontalAlignment="Left" Margin="381,131,0,0" VerticalAlignment="Top" FontSize="16" Height="33" Width="106" Click="BtnCalculate_Click"/>
-        <Button x:Name="btnClear" Content="Очистить" HorizontalAlignment="Left" Margin="518,132,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.129,-0.122" FontSize="16" Height="31" Width="106" Click="BtnClear_Click"/>
+        <Button x:Name="btnCalculate" Content="Вычислить" HorizontalAlignment="Left" Margin="381,131,0,0" VerticalAlignment="Top" FontSize="16" Height="33" Width="106" Click="btnCalculate_Click"/>
+        <Button x:Name="btnClear" Content="Очистить" HorizontalAlignment="Left" Margin="518,132,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.129,-0.122" FontSize="16" Height="31" Width="106" Click="btnClear_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="507,223,0,0" TextWrapping="Wrap" Text="dx" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="txtDX" HorizontalAlignment="Left" Margin="543,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="81" Height="28"/>
+        <WindowsFormsHost Margin="319,276,176,19">
+            <charts:Chart x:Name="ChartPayments">
+                <charts:Chart.Legends>
+                    <charts:Legend>
+
+                    </charts:Legend>
+                </charts:Chart.Legends>
+            </charts:Chart>
+        </WindowsFormsHost>
+
     </Grid>
 </Page>

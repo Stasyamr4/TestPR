@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms.DataVisualization.Charting;
 namespace Guyda_Mura4
@@ -26,7 +25,6 @@ namespace Guyda_Mura4
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            Page currentPage = MainFrame.Content as Page;
             if (MainFrame.NavigationService.CanGoBack) MainFrame.NavigationService.GoBack();
         }
     }

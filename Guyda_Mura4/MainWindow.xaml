@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Guyda_Mura4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MuraGuyda423" Height="450" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame" Source="Page1.xaml"></Frame>
+        <Frame x:Name="MainFrame" Source="Page1.xaml" NavigationUIVisibility="Hidden"/>
         <Button x:Name="BackButton" Margin="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="25" Click="BackButton_Click">Назад</Button>
     </Grid>
 </Window>
