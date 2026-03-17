@@ -8,12 +8,14 @@
 <img width="778" height="466" alt="image" src="https://github.com/user-attachments/assets/454fd730-abbb-4522-a69d-2d1055974260" />
 
 тестирование 2 функции
+
 <img width="410" height="97" alt="image" src="https://github.com/user-attachments/assets/ea7a6386-b967-41b0-84e9-e813303b596e" />
 
 работа третьей функции
 <img width="879" height="485" alt="image" src="https://github.com/user-attachments/assets/5c073dfd-c1ca-4692-96c1-b1db9bd5bd7e" />
 
 тестирование 3 функции
+
 <img width="329" height="76" alt="image" src="https://github.com/user-attachments/assets/699d1fd1-43cb-41ba-9117-8ccacf45b233" />
 
 итоговые результаты всех тестов
