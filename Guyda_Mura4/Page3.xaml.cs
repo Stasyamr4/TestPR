@@ -11,6 +11,7 @@ namespace Guyda_Mura423
 {
     public partial class Page3 : Page
     {
+        private const double Const = 0.0084; // вынесли константу
         public Page3()
         {
             InitializeComponent();
@@ -77,6 +78,24 @@ namespace Guyda_Mura423
             UpdateXkValue();
         }
 
+
+        /// <summary>
+        /// Вычисляет значение y = x * sin(√x + b - 0.0084)
+        /// </summary>
+        /// <param name="x">Аргумент x (должен быть ≥ 0)</param>
+        /// <param name="b">Параметр b</param>
+        /// <returns>Значение функции</returns>
+        /// <exception cref="ArgumentException">Выбрасывается, если x < 0</exception>
+
+        public static double ComputeY(double x, double b)
+        {
+            if (x < 0)
+                throw new ArgumentException("x не может быть отрицательным", nameof(x));
+
+            double sqrtX = Math.Sqrt(x);
+            double argument = sqrtX + b - Const;
+            return x * Math.Sin(argument);
+        }
         // Обработчик кнопки "Вычислить"
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
@@ -114,37 +133,26 @@ namespace Guyda_Mura423
                     return;
                 }
 
-                double xk = x0 + 1; // Xk = X0 + 1
+                double xk = x0 + 1;
 
-                // Очищаем предыдущие результаты
                 txtResult.Clear();
-
-                // Очищаем диаграмму
-                UpdateChart(b, x0, xk, dx);
+                UpdateChart(b, x0, xk, dx); // этот метод оставляем без изменений
 
                 StringBuilder results = new StringBuilder();
                 int count = 0;
 
-                // Цикл табуляции функции от X0 до Xk с шагом dx
+                // Цикл табуляции с использованием ComputeY
                 for (double currentX = x0; currentX <= xk + 1e-10; currentX += dx)
                 {
-                    // Проверка области определения (подкоренное выражение >= 0)
-                    if (currentX < 0)
-                    {
-                        results.AppendLine($"x = {currentX:F4} → не определена (x < 0)");
-                        continue;
-                    }
-
                     try
                     {
-                        // Вычисление y = x * sin(√x + b - 0.0084)
-                        double sqrtX = Math.Sqrt(currentX);
-                        double argument = sqrtX + b - 0.0084;
-                        double y = currentX * Math.Sin(argument);
-
-                        // Добавляем строку с результатами
+                        double y = ComputeY(currentX, b);
                         results.AppendLine($"x = {currentX:F4} \t y = {y:F6}");
                         count++;
+                    }
+                    catch (ArgumentException)
+                    {
+                        results.AppendLine($"x = {currentX:F4} → не определена (x < 0)");
                     }
                     catch (Exception ex)
                     {
@@ -152,26 +160,25 @@ namespace Guyda_Mura423
                     }
                 }
 
-                // Добавляем отдельно вычисление для введенного x (если требуется)
+                // Отдельное значение для введённого x
                 if (double.TryParse(txtX.Text, out double singleX))
                 {
-                    if (singleX >= 0)
+                    try
                     {
-                        double sqrtSingle = Math.Sqrt(singleX);
-                        double argSingle = sqrtSingle + b - 0.0084;
-                        double ySingle = singleX * Math.Sin(argSingle);
+                        double ySingle = ComputeY(singleX, b);
                         results.AppendLine($"\nДля x = {singleX:F4}: y = {ySingle:F6}");
                     }
-                    else
+                    catch (ArgumentException)
                     {
                         results.AppendLine($"\nДля x = {singleX:F4}: функция не определена (x < 0)");
                     }
+                    catch (Exception ex)
+                    {
+                        results.AppendLine($"\nДля x = {singleX:F4}: ошибка: {ex.Message}");
+                    }
                 }
 
-                // Выводим ВСЕ результаты в txtResult
                 txtResult.Text = results.ToString();
-
-                // Обновляем Xk в интерфейсе
                 txtXk.Text = xk.ToString("F2");
             }
             catch (Exception ex)
