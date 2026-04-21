@@ -82,25 +82,51 @@ namespace Galaktikos
 Результат выполнения:
 <img width="975" height="506" alt="image" src="https://github.com/user-attachments/assets/57007b2b-3598-4078-93fc-3777204d8937" />
 
-Поставить точку останова в первой строке и с помощью отладчика пошагово дойти до объявления переменной sum, убедиться, что все значения из кода корректно присвоились в переменные:
-<img width="924" height="1014" alt="image" src="https://github.com/user-attachments/assets/3983f94f-fab2-41b7-9d33-d417963b5020" />
+Поставить точку останова в строке вывода галактик в цикле foreach и посмотреть, какой тип галактики возвращается:
+<img width="1336" height="108" alt="image" src="https://github.com/user-attachments/assets/ebc24eb9-42b0-4430-87ea-8b4ae8a77d86" />
 
-поставить точку останова в цикле, чтобы избежать пошагового выполнения и сразу отслеживать изменение значений переменных. Было замечено, что до 4 итерации код правильно считает последовательность
-<img width="947" height="1008" alt="image" src="https://github.com/user-attachments/assets/a87682b6-96b3-4947-a20e-fe386bb49cab" />
+Как видно из скриншота, тип галактики определяется корректно, но в консоль возвращается имя поля класса.
+В том же коде при отладке поместим курсор в конец theGalaxy.GalaxyType и изменим его на theGalaxy.GalaxyType.MyGType.
+Нажать F11, чтобы выполнить текущую строку кода
+F11 перемещает отладчик (и выполняет код) по одной инструкции за раз.
+При попытке перейти к отладчику появится диалоговое окно "Горячая перезагрузка", указывающее, что изменения не могут быть скомпилированы. Нажать на кнопку "Изменить".
+<img width="618" height="188" alt="image" src="https://github.com/user-attachments/assets/38fd8d4d-9dde-468a-9d2a-9fd6b55a8746" />
 
-После 4 итерации при нажатии кнопки продолжить программа вылетает и возвращает последнее число последовательности, посчитанное на шаге 4 (это и есть число 3)
-<img width="1455" height="1005" alt="image" src="https://github.com/user-attachments/assets/36af76ec-0872-4605-9da3-8d96faeef2fa" />
+Программа вернула ошибку. В классе Galaxy обнаружили, что свойство класса 
+`GalaxyType` указано как Galaxy, а не как object.
+<img width="678" height="589" alt="image" src="https://github.com/user-attachments/assets/10765e14-7aef-4993-8e6a-9468b53a17f8" />
 
-Удалим предыдущие точки останова и поставим одну единственную в строке 18: `return n == 0 ? n1 : n2;`
-Запустим отладчик. Видно, что функция вернет число 3, не выполнив подсчёт 5 числа (5 итерация не проходит)
-<img width="957" height="1003" alt="image" src="https://github.com/user-attachments/assets/0fc95ebe-d8c0-4eba-8879-fcec05efec24" />
-Исходя из вышеперечисленного, можно сделать вывод о том, что 5 итерация не проходит из-за ограничений в цикле for
-`for (int i = 2; i < n; i++)`
-Исправим условие окончания цикла: `for (int i = 2; i <= n; i++)`. Повторно запустим программу с той же точкой останова.
-<img width="949" height="1009" alt="image" src="https://github.com/user-attachments/assets/a3170617-489b-45d8-8d71-baff3a800ea9" />
-Как видно из окна "Локальные", функция сработала корректно и вернула значение 5.
-Запустим программу и убедимся в этом
-<img width="977" height="217" alt="image" src="https://github.com/user-attachments/assets/60191bdb-a50c-4e27-9044-d4ae1318b22d" />
+Изменим свойство класса `GalaxyType` на следующее:
+`public GType GalaxyType { get; set; }`
+<img width="489" height="125" alt="image" src="https://github.com/user-attachments/assets/e1dc2255-738f-4393-b504-86c0f85740c9" />
+
+После отладки тип галактик отображается правильно, но у галактики `Small Magellanic Cloud` не выводится тип и программа завершается с кодом -1.
+<img width="552" height="250" alt="image" src="https://github.com/user-attachments/assets/255cf50e-6c99-461a-8cf0-f8ce8cb15fd1" />
+
+Установить точку останова в типах галактик, в строке перед switch, чтобы посмотреть, какой тип присваивается галактике. Дойдя до нужной галактики, заметим, что ей присваивается тип `I`, но в switch такого типа нет, поэтому программа переходит к разделу default.
+<img width="922" height="546" alt="image" src="https://github.com/user-attachments/assets/92a908f8-6a33-4725-9a5b-a76e7d4c4699" />
+
+```csharp
+switch (type)
+{
+    case 'S':
+        MyGType = Type.Spiral;
+        break;
+    case 'E':
+        MyGType = Type.Elliptical;
+        break;
+    case 'l':
+        MyGType = Type.Irregular;
+        break;
+    case 'L':
+        MyGType = Type.Lenticular;
+        break;
+    default:
+        break;
+}
+```
+Изменим `case "l"` на `case "I"`. Запустим программу и убедимся в правильности выполнения:
+<img width="977" height="265" alt="image" src="https://github.com/user-attachments/assets/fc77dbcd-6e94-47df-b704-4a346593fc2f" />
 
 ## Авторы
 **Студенты**: Мура Анастасия и Гуйда Владислав
