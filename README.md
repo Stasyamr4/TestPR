@@ -1,50 +1,60 @@
+## Отладка консольного приложения "Буквы" на языке C#
+
 исходный код программы:
 
 ```csharp
-int result = Fibonacci(5);
-Console.WriteLine(result);
+using System;
 
-static int Fibonacci(int n)
+class ArrayExample
 {
-    Console.WriteLine("The output is: ");
-    int n1 = 0;
-    int n2 = 1;
-    int sum;
-
-    for (int i = 2; i < n; i++)
+    static void Main()
     {
-        sum = n1 + n2;
-        n1 = n2;
-        n2 = sum;
+        char[] letters = { 'f', 'r', 'e', 'd', ' ', 's', 'm', 'i', 't', 'h' };
+        string name = "";
+        int[] a = new int[10];
+        for (int i = 0; i < letters.Length; i++)
+        {
+            name += letters[i];
+            a[i] = i + 1;
+            SendMessage(name, a[i]);
+        }
+        Console.ReadKey();
     }
 
-    return n == 0 ? n1 : n2;
+    static void SendMessage(string name, int msg)
+    {
+        Console.WriteLine("Hello, " + name + "! Count to " + msg);
+    }
 }
 ```
 
 Результат выполнения:
-<img width="976" height="246" alt="image" src="https://github.com/user-attachments/assets/26d3ddcc-0ece-4511-ae35-21f82bfdc763" />
+<img width="979" height="325" alt="image" src="https://github.com/user-attachments/assets/4d3416fd-eb47-46f3-81ab-4c9936f83a67" />
 
-Поставить точку останова в первой строке и с помощью отладчика пошагово дойти до объявления переменной sum, убедиться, что все значения из кода корректно присвоились в переменные:
-<img width="924" height="1014" alt="image" src="https://github.com/user-attachments/assets/3983f94f-fab2-41b7-9d33-d417963b5020" />
 
-поставить точку останова в цикле, чтобы избежать пошагового выполнения и сразу отслеживать изменение значений переменных. Было замечено, что до 4 итерации код правильно считает последовательность
-<img width="947" height="1008" alt="image" src="https://github.com/user-attachments/assets/a87682b6-96b3-4947-a20e-fe386bb49cab" />
+Поставить точку останова в строке 12
+<img width="619" height="159" alt="image" src="https://github.com/user-attachments/assets/c2fdb3d0-2399-4ead-af99-a085f4c6a54f" />
 
-После 4 итерации при нажатии кнопки продолжить программа вылетает и возвращает последнее число последовательности, посчитанное на шаге 4 (это и есть число 3)
-<img width="1455" height="1005" alt="image" src="https://github.com/user-attachments/assets/36af76ec-0872-4605-9da3-8d96faeef2fa" />
 
-Удалим предыдущие точки останова и поставим одну единственную в строке 18: `return n == 0 ? n1 : n2;`
-Запустим отладчик. Видно, что функция вернет число 3, не выполнив подсчёт 5 числа (5 итерация не проходит)
-<img width="957" height="1003" alt="image" src="https://github.com/user-attachments/assets/0fc95ebe-d8c0-4eba-8879-fcec05efec24" />
-Исходя из вышеперечисленного, можно сделать вывод о том, что 5 итерация не проходит из-за ограничений в цикле for
-`for (int i = 2; i < n; i++)`
-Исправим условие окончания цикла: `for (int i = 2; i <= n; i++)`. Повторно запустим программу с той же точкой останова.
-<img width="949" height="1009" alt="image" src="https://github.com/user-attachments/assets/a3170617-489b-45d8-8d71-baff3a800ea9" />
-Как видно из окна "Локальные", функция сработала корректно и вернула значение 5.
-Запустим программу и убедимся в этом
-<img width="977" height="217" alt="image" src="https://github.com/user-attachments/assets/60191bdb-a50c-4e27-9044-d4ae1318b22d" />
+Начать отладку проекта. Навести указатель мыши на интересующую переменную для получения подробной информации о ней (какое именно значение примет переменная в цикле при конкретной итерации).
+<img width="416" height="209" alt="image" src="https://github.com/user-attachments/assets/f70c45df-0450-46bf-98dd-a7d470e79cfa" />
 
+
+С помощью кнопки "Шаг с заходом" или клавиши F11 дойти до строки 20. Нажать клавишу F11 для захода в функцию. Желтая стрелка слева указывает текущее положение отладчика в коде.
+<img width="731" height="244" alt="image" src="https://github.com/user-attachments/assets/db26988c-faa5-4e7a-b466-e1ccd094cf64" />
+
+Повторно нажать F11 для входа в метод. Желтая стрелка остановится на строке 21: `Console.WriteLine("Hello, " + name + "! Count to " + msg);`
+<img width="787" height="105" alt="image" src="https://github.com/user-attachments/assets/11b1739f-8067-4329-83e6-4cd410804af4" />
+
+Чтобы покинуть функцию и вернуться в цикл for, нажать сочетание клавиш `Shift + F11`. Выполнится код в теле функции, произойдет вывод в консоль, а отладчик переместится в цикл for, в строку с вызовом нашего метода `SendMessage(name, a[i]);`
+<img width="929" height="372" alt="image" src="https://github.com/user-attachments/assets/d4868957-d0b7-4b8e-93c2-829dd9f5d53e" />
+
+<img width="569" height="99" alt="image" src="https://github.com/user-attachments/assets/e7be4ad9-505a-4cef-8a79-12f5b563198a" />
+
+Также во время отладки можно воспользоваться функцией `Выполнить до этого места`. В нашем случае наведем указатель мыши на строку, в которой происходит вывод в консоль (21) и воспользуемся вышеназванной функцией. Произойдет выполнение кода до данной строки (включительно), соответственно в консоли появится сообщение, что говорит о том, что функция сработала успешно.
+<img width="797" height="167" alt="image" src="https://github.com/user-attachments/assets/2b3e2465-3869-4da0-bbd5-7498436de48b" />
+
+**Вывод в консоль происходит успешно, буквы не пропадают, по итогу выполнения программы сообщение выводится полностью корректно.**
 ## Авторы
 **Студенты**: Мура Анастасия и Гуйда Владислав
 
