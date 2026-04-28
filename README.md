@@ -99,6 +99,172 @@ DecryptVigenere(string cipher, string key).
 
 ---
 
+## Разработка WPF-приложения
+Код `логики` приложения MainWindow.xaml.cs:
+```csharp
+using System;
+using System.Windows;
+using System.Windows.Media;
+using EncryptVigenere;
+
+namespace EncryptVigenere
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void BtnEncrypt_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string text = txtText.Text;
+                string key = txtKey.Text;
+
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    ShowStatus("Ошибка: текст не может быть пустым.", Brushes.Red);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    ShowStatus("Ошибка: ключ не может быть пустым.", Brushes.Red);
+                    return;
+                }
+
+                string encrypted = VigenereCipher.Encrypt(text, key);
+                txtResult.Text = encrypted;
+                ShowStatus($"Шифрование выполнено успешно. Длина ключа: {key.Length}", Brushes.Green);
+            }
+            catch (ArgumentException ex)
+            {
+                ShowStatus($"Ошибка: {ex.Message}", Brushes.Red);
+            }
+            catch (Exception ex)
+            {
+                ShowStatus($"Неизвестная ошибка: {ex.Message}", Brushes.Red);
+            }
+        }
+
+        private void BtnDecrypt_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string text = txtText.Text;
+                string key = txtKey.Text;
+
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    ShowStatus("Ошибка: текст не может быть пустым.", Brushes.Red);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    ShowStatus("Ошибка: ключ не может быть пустым.", Brushes.Red);
+                    return;
+                }
+
+                string decrypted = VigenereCipher.Decrypt(text, key);
+                txtResult.Text = decrypted;
+                ShowStatus($"Дешифрование выполнено успешно.", Brushes.Green);
+            }
+            catch (ArgumentException ex)
+            {
+                ShowStatus($"Ошибка: {ex.Message}", Brushes.Red);
+            }
+            catch (Exception ex)
+            {
+                ShowStatus($"Неизвестная ошибка: {ex.Message}", Brushes.Red);
+            }
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            txtText.Clear();
+            txtKey.Clear();
+            txtResult.Clear();
+            ShowStatus("Все поля очищены.", Brushes.Black);
+        }
+
+        private void ShowStatus(string message, System.Windows.Media.Brush color)
+        {
+            statusMessage.Content = message;
+            statusMessage.Foreground = color;
+        }
+    }
+}
+```
+
+**Визуальная часть приложения**:
+```xaml
+<Window x:Class="EncryptVigenere.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Шифр Виженера" Height="500" Width="650"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Шифр Виженера" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+
+        <!-- Поле для текста -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Текст:" VerticalAlignment="Center" FontSize="14"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="txtText" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" ToolTip="Введите текст для шифрования/дешифрования"/>
+
+        <!-- Поле для ключа -->
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ключ:" VerticalAlignment="Center" FontSize="14"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="txtKey" Height="30" ToolTip="Ключевое слово (только буквы)"/>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Name="btnEncrypt" Content="Зашифровать" Width="120" Height="35" Margin="5" Click="BtnEncrypt_Click"/>
+            <Button Name="btnDecrypt" Content="Расшифровать" Width="120" Height="35" Margin="5" Click="BtnDecrypt_Click"/>
+            <Button Name="btnClear" Content="Сбросить" Width="100" Height="35" Margin="5" Click="BtnClear_Click"/>
+        </StackPanel>
+
+        <!-- Результат -->
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Результат:" VerticalAlignment="Center" FontSize="14"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="txtResult" Height="80" TextWrapping="Wrap" IsReadOnly="True" Background="#F0F0F0" ToolTip="Здесь отображается результат операции"/>
+
+        <!-- Статусная строка для сообщений -->
+        <StatusBar Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <StatusBarItem Name="statusMessage" Content="Готово"/>
+        </StatusBar>
+    </Grid>
+</Window>
+```
+
+---
+
+## Ручное тестирование
+
+Зашифровано сообщение с ключом аб:
+<img width="628" height="486" alt="image" src="https://github.com/user-attachments/assets/1b23022d-3ab1-4f99-825f-9a683150684c" />
+
+Расшифровка данного сообщения с тем же ключом:
+<img width="630" height="484" alt="image" src="https://github.com/user-attachments/assets/b934c6aa-a325-4a28-a518-075795673574" />
+
+Попытка оставить пустой ключ или текст приводит к **ошибке:**
+<img width="631" height="490" alt="image" src="https://github.com/user-attachments/assets/209c8747-ae84-4b5a-ab77-3dc22399fb2e" />
+
+<img width="639" height="487" alt="image" src="https://github.com/user-attachments/assets/94c8faec-205c-415b-8791-cfbf086ce0b3" />
+
+---
+
 ## Применяемые средства отладки Visual Studio
 
 | Средство | Описание |
